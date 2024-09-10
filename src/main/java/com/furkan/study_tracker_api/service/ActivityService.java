@@ -3,7 +3,7 @@ package com.furkan.study_tracker_api.service;
 import com.furkan.study_tracker_api.dto.ActivityDto;
 import com.furkan.study_tracker_api.exception.ResourceNotFoundException;
 import com.furkan.study_tracker_api.model.Activity;
-import com.furkan.study_tracker_api.model.User;
+import com.furkan.study_tracker_api.model.AppUser;
 import com.furkan.study_tracker_api.repository.ActivityRepository;
 import com.furkan.study_tracker_api.repository.UserRepository;
 import com.furkan.study_tracker_api.util.ActivityMapper;
@@ -42,8 +42,8 @@ public class ActivityService {
     public Activity createActivity(ActivityDto activityDto){
 
         Activity activity = new Activity();
-        User user = userRepository.findById(activityDto.getCreatedById()).orElseThrow(()-> new ResourceNotFoundException("User not found"));
-        activity.setCreatedBy(user);
+        AppUser appUser = userRepository.findById(activityDto.getCreatedById()).orElseThrow(()-> new ResourceNotFoundException("User not found"));
+        activity.setCreatedBy(appUser);
         activity.setSuccessful(false);
         activity.setDurationMinutes(activityDto.getDurationMinutes());
         activity.setCreatedById(activityDto.getCreatedById());

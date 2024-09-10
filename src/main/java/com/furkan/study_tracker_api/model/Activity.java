@@ -25,7 +25,7 @@ public class Activity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
-    private User createdBy;
+    private AppUser createdBy;
     private Long createdById;
 
     public Long getId() {
@@ -68,11 +68,11 @@ public class Activity {
         this.successful = successful;
     }
 
-    public User getCreatedBy() {
+    public AppUser getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(AppUser createdBy) {
         this.createdBy = createdBy;
     }
 

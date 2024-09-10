@@ -24,6 +24,8 @@ public class UserDto {
     private String password;
     private List<Activity> activities;
 
+
+
     public @NotNull @Size(min = 3, max = 32, message = "Username must be between 3 and 32 characters long") String getUsername() {
         return username;
     }

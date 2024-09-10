@@ -9,32 +9,28 @@ import com.furkan.study_tracker_api.util.UpdateUserMapper;
 import com.furkan.study_tracker_api.util.UserMapper;
 import com.furkan.study_tracker_api.repository.ActivityRepository;
 import com.furkan.study_tracker_api.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
-
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
-    private final UserMapper userMapper;
-    private final UpdateUserMapper updateUserMapper;
+public class UserService implements UserDetailsService {
 
     @Autowired
-    public UserService(
-            ActivityRepository activityRepository,
-            UserRepository userRepository,
-            BCryptPasswordEncoder passwordEncoder,
-            UserMapper userMapper, UpdateUserMapper updateUserMapper
-    ){
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.userMapper = userMapper;
-        this.updateUserMapper = updateUserMapper;
-    }
+    private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UpdateUserMapper updateUserMapper;
 
     public AppUser getUser(Long id){
         return this.userRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
@@ -74,5 +70,10 @@ public class UserService {
     public void deleteUser(Long id){
         AppUser user = this.getUser(id);
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }

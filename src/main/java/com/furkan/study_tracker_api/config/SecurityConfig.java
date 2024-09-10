@@ -1,5 +1,7 @@
 package com.furkan.study_tracker_api.config;
 
+import com.furkan.study_tracker_api.filter.JwtAuthFilter;
+import com.furkan.study_tracker_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +27,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private JwtAuthFilter jwtAuthFilter;
+    private JwtAuthFilter authFilter;
 
     @Autowired
     public UserDetailsService userDetailsService(){
-        return new UserInfoService();
+        return new UserService();
     }
 
     @Bean
@@ -37,10 +39,10 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                (auth) -> auth.requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET).permitAll()
-                        .requestMatchers(HttpMethod.PUT).permitAll()
-                        .requestMatchers(HttpMethod.POST).permitAll()
+                (auth) -> auth.requestMatchers("/auth/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET).permitAll()
+//                        .requestMatchers(HttpMethod.PUT).permitAll()
+//                        .requestMatchers(HttpMethod.POST).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);

@@ -2,11 +2,13 @@ package com.furkan.study_tracker_api.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
+@Transactional
 @Entity
 @Table(name = "ACTIVITY")
 @AllArgsConstructor

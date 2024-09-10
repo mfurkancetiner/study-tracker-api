@@ -2,6 +2,7 @@ package com.furkan.study_tracker_api.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Table(name = "APP_USER", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"email", "username"})
 })
